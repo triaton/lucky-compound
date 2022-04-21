@@ -9,23 +9,17 @@ import {
   LCAddress,
   LCDiceAddress,
   LuckyLCAddress,
-  MasterChefAddress,
   luckyReferrer,
+  MasterChefAddress,
   RouterAddress,
   RPC_URL,
   wbnbAddress,
 } from './consts';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Withdrawal } from './entities/withdrawal.entity';
-import { Repository } from 'typeorm';
 import { transformPvKey } from './utils';
 
 @Injectable()
 export class WalletService {
-  constructor(
-    @InjectRepository(Withdrawal)
-    private withdrawalRepository: Repository<Withdrawal>,
-  ) {}
+  constructor() {}
 
   async getPendingLC(address: string): Promise<BigNumber> {
     const contract = this.getMasterChefContract();

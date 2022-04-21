@@ -20,7 +20,7 @@ async function bootstrap() {
     expressBasicAuth({
       challenge: true,
       users: {
-        beans: 'secret',
+        lucky: 'secret',
       },
     }),
   );
