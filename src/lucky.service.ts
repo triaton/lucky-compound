@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { MIN_LC_COMPOUND, MIN_STAKING_WALLET_BALANCE } from './consts';
+import { Cron } from '@nestjs/schedule';
+import { LCAddress, MIN_LC_COMPOUND, MIN_STAKING_WALLET_BALANCE } from './consts';
 import { WalletService } from './wallet.service';
 import { ConfigService } from './config.service';
-import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class LuckyService {
@@ -11,7 +11,7 @@ export class LuckyService {
     private readonly configService: ConfigService,
   ) {}
 
-  @Cron('*/5 * * * *')
+  @Cron('0 */5 * * * *')
   async handleCron() {
     if (!this.configService.getIsRunning()) {
       return;
@@ -23,6 +23,14 @@ export class LuckyService {
       return;
     }
     const { address } = this.walletService.getLCStakingWallet();
+    const lcBalance = await WalletService.getTokenBalance(address, LCAddress);
+
+    if (lcBalance.gte(MIN_LC_COMPOUND)) {
+      await this.walletService.bankLC();
+      await this.walletService.stakeLuckyLC();
+      return;
+    }
+
     const pendingLC = await this.walletService.getPendingLC(address);
 
     // do nothing when the pending lc reward is small
