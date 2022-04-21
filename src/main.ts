@@ -9,7 +9,7 @@ async function bootstrap() {
     .setTitle('LuckyChip API')
     .setDescription('The luckychip API description')
     .setVersion('1.0')
-    .addTag('beans')
+    .addTag('luckychip')
     .build();
   app.enableCors({
     origin: '*',

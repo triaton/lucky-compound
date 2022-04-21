@@ -22,7 +22,7 @@ export class LuckyService {
     if (!isPaused) {
       return;
     }
-    const { address } = this.walletService.getStakingWallet();
+    const { address } = this.walletService.getLCStakingWallet();
     const pendingLC = await this.walletService.getPendingLC(address);
 
     // do nothing when the pending lc reward is small

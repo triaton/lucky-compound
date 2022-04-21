@@ -44,7 +44,7 @@ export class WalletService {
   }
 
   async swapLCToBNB(): Promise<void> {
-    const stakingWallet = this.getStakingWallet();
+    const stakingWallet = this.getLCStakingWallet();
     const lcBalance = await WalletService.getTokenBalance(
       stakingWallet.address,
       LCDiceAddress,
@@ -66,7 +66,7 @@ export class WalletService {
 
   async bankLC(): Promise<void> {
     const diceContract = this.getLCDiceContract();
-    const stakingWallet = this.getStakingWallet();
+    const stakingWallet = this.getLCStakingWallet();
     const lcBalance = await WalletService.getTokenBalance(
       stakingWallet.address,
       LCDiceAddress,
@@ -77,7 +77,7 @@ export class WalletService {
 
   async stakeLuckyLC(): Promise<void> {
     const contract = this.getMasterChefContract();
-    const stakingWallet = this.getStakingWallet();
+    const stakingWallet = this.getLCStakingWallet();
     const luckyLcBalance = await WalletService.getTokenBalance(
       stakingWallet.address,
       LuckyLCAddress,
@@ -90,7 +90,7 @@ export class WalletService {
     await tx.wait();
   }
 
-  getStakingWallet(): Wallet {
+  getLCStakingWallet(): Wallet {
     const pvKey = transformPvKey('PRIVATE_KEY');
     return WalletService.getWallet(pvKey);
   }
@@ -118,16 +118,16 @@ export class WalletService {
     return new Contract(
       MasterChefAddress,
       masterChefAbi,
-      this.getStakingWallet(),
+      this.getLCStakingWallet(),
     );
   }
 
   private getLCDiceContract(): Contract {
-    return new Contract(LCDiceAddress, lcDiceAbi, this.getStakingWallet());
+    return new Contract(LCDiceAddress, lcDiceAbi, this.getLCStakingWallet());
   }
 
   private getRouterContract(): Contract {
-    return new Contract(RouterAddress, routerAbi, this.getStakingWallet());
+    return new Contract(RouterAddress, routerAbi, this.getLCStakingWallet());
   }
 
   private async getBNBAmountOut(lcAmount: BigNumber): Promise<BigNumber> {
