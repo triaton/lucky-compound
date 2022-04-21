@@ -6,8 +6,8 @@ import * as expressBasicAuth from 'express-basic-auth';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
-    .setTitle('Beans API')
-    .setDescription('The beans API description')
+    .setTitle('LuckyChip API')
+    .setDescription('The luckychip API description')
     .setVersion('1.0')
     .addTag('beans')
     .build();
@@ -25,6 +25,6 @@ async function bootstrap() {
     }),
   );
   SwaggerModule.setup('docs', app, document);
-  await app.listen(process.env.PORT || 27017);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();

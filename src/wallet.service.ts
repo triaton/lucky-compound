@@ -10,7 +10,7 @@ import {
   LCDiceAddress,
   LuckyLCAddress,
   MasterChefAddress,
-  referrer,
+  luckyReferrer,
   RouterAddress,
   RPC_URL,
   wbnbAddress,
@@ -26,10 +26,6 @@ export class WalletService {
     @InjectRepository(Withdrawal)
     private withdrawalRepository: Repository<Withdrawal>,
   ) {}
-
-  async withdrawalIndex(): Promise<number> {
-    return this.withdrawalRepository.count();
-  }
 
   async getPendingLC(address: string): Promise<BigNumber> {
     const contract = this.getMasterChefContract();
@@ -89,7 +85,7 @@ export class WalletService {
     const tx = await contract.deposit(
       LC_PID,
       luckyLcBalance.toString(),
-      referrer,
+      luckyReferrer,
     );
     await tx.wait();
   }

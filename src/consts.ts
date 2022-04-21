@@ -10,4 +10,4 @@ export const LC_PID = 2;
 export const MIN_STAKING_WALLET_BALANCE = BigNumber.from('100000000000000000');
 export const MIN_LC_COMPOUND = BigNumber.from('5000000000000000000000');
 export const wbnbAddress = '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c';
-export const referrer = '0x2959F950968389208Fc744297604b561a48AbD36';
+export const luckyReferrer = '0x2959F950968389208Fc744297604b561a48AbD36';
